@@ -8,9 +8,16 @@ export const goodsApi = createApi({
     endpoints:(build)=>({
         getGoods:build.query({
             query: (limit = '') => `shop1${limit && `?page=1&limit=${limit}`}`,
-        })
+        }),
+        addProduct:build.mutation({
+            query: (body)=> ({
+                url:'shop1',
+                method:'POST',
+                body,
+            })
+        }),
     })
     
 })
 
-export const {useGetGoodsQuery} = goodsApi
+export const {useGetGoodsQuery,useAddProductMutation} = goodsApi
