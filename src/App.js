@@ -1,6 +1,6 @@
 import "./App.css";
 import {useState} from 'react'
-import {useGetGoodsQuery,useAddProductMutation} from './store/goodsApi'
+import {useGetGoodsQuery,useAddProductMutation,useDeleteProductMutation} from './store/goodsApi'
 import Post  from './components/Post/Post'
 
 
@@ -9,6 +9,7 @@ const [count,setCount] = useState('')
 const [newProduct,setNewProduct] = useState('')
 const {data=[],isLoading} = useGetGoodsQuery(count)
 const [addProduct,{isError}] = useAddProductMutation()
+const [deleteProduct] = useDeleteProductMutation()
 
 const hanelAddProduct = async () => {
  if(newProduct) {
@@ -18,6 +19,12 @@ const hanelAddProduct = async () => {
    setNewProduct('')
  }
 }
+const handelDeleteProduct = async (id)=>{
+   await deleteProduct(id).unwrap()
+}
+
+
+
 
 if(isLoading) return <h1>Loading...</h1>
 
@@ -29,7 +36,7 @@ const selectChange = (e) =>  setCount(e.target.value)
     <input type="text" value={newProduct} onChange={(e)=>setNewProduct(e.target.value)}/>
     <button onClick={hanelAddProduct}>ADD PRODUCT</button>
         {
-          data.map(item=> <Post key={item.id} item={item} />)
+          data.map(item=> <Post key={item.id} item={item} none={handelDeleteProduct}  />)
         }
         <div>
        <select name="select" id="" value={count} onChange={selectChange}>

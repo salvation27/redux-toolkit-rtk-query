@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.item_wrap {
+  display: flex;
+
+}
+.del_btn {
+  color: red;
+  margin-left: 100px;
+  cursor: pointer;
+}
