@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+// import {useState} from 'react'
+import {useGetGoodsQuery} from './store/goodsApi'
+import Post  from './components/Post/Post'
+
 
 function App() {
+// const [count,setCount] = useState('')
+const {data=[],isLoading} = useGetGoodsQuery()
+
+if(isLoading) return <h1>Loading...</h1>
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        {
+          data.map(item=> <Post key={item.id} item={item} />)
+        }
+      </div>
     </div>
   );
 }
